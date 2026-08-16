@@ -1,0 +1,154 @@
+[
+    {
+        "id": "3616d4d69f4e57d8",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "87f4769aa4d99ade",
+        "type": "inject",
+        "z": "3616d4d69f4e57d8",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "10",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 110,
+        "y": 280,
+        "wires": [
+            [
+                "dc57b4ced61d4905"
+            ]
+        ]
+    },
+    {
+        "id": "dc57b4ced61d4905",
+        "type": "http request",
+        "z": "3616d4d69f4e57d8",
+        "name": "",
+        "method": "GET",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "http://localhost:3000/visualize",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 290,
+        "y": 320,
+        "wires": [
+            [
+                "e815bace38f2d489"
+            ]
+        ]
+    },
+    {
+        "id": "e815bace38f2d489",
+        "type": "function",
+        "z": "3616d4d69f4e57d8",
+        "name": "function 1",
+        "func": "const dato = msg.payload;\n\nif (!dato || typeof dato.temperature !== \"number\") {\n    return null;\n}\n\nmsg.payload = dato.temperature;\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 460,
+        "y": 360,
+        "wires": [
+            [
+                "f75dd3aaf7b1ae15",
+                "06933f656a62871d"
+            ]
+        ]
+    },
+    {
+        "id": "f75dd3aaf7b1ae15",
+        "type": "debug",
+        "z": "3616d4d69f4e57d8",
+        "name": "Respuesta de la API",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 640,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "06933f656a62871d",
+        "type": "ui_gauge",
+        "z": "3616d4d69f4e57d8",
+        "name": "",
+        "group": "5b95cb24978a9794",
+        "order": 0,
+        "width": "3",
+        "height": "2",
+        "gtype": "gage",
+        "title": "gauge",
+        "label": "units",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "50",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "diff": false,
+        "className": "",
+        "x": 590,
+        "y": 320,
+        "wires": [],
+        "icon": "node-red/status.svg"
+    },
+    {
+        "id": "5b95cb24978a9794",
+        "type": "ui_group",
+        "z": "3616d4d69f4e57d8",
+        "name": "Sensores",
+        "tab": "3d05bc574ec4499f",
+        "order": 1,
+        "disp": true,
+        "width": 6,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "3d05bc574ec4499f",
+        "type": "ui_tab",
+        "name": "IoT Dashboard",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "74feb581572bca61",
+        "type": "global-config",
+        "env": [],
+        "modules": {
+            "node-red-dashboard": "3.6.6"
+        }
+    }
+]
